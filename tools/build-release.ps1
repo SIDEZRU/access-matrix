@@ -28,13 +28,14 @@ function ConvertTo-Regex([string]$Pattern) {
 # Возвращает $true, если путь относительно корня исключён правилом .nextcloudignore.
 function Test-Ignored([string]$RelativePath, [array]$Patterns) {
 	foreach ($pattern in $Patterns) {
-		$glob = ConvertTo-Regex $pattern
 		if ($pattern.StartsWith('/')) {
 			# Правило от корня приложения: /docs → docs и всё, что внутри.
+			$glob = ConvertTo-Regex $pattern.Substring(1)
 			if ($RelativePath -match "^$glob(/.*)?$") { return $true }
 		}
 		else {
 			# Правило по имени: .git → любой .git на любом уровне.
+			$glob = ConvertTo-Regex $pattern
 			if ($RelativePath -match "(^|/)$glob(/.*)?$") { return $true }
 		}
 	}

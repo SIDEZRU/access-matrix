@@ -19,6 +19,9 @@
 /stylelint.config.cjs
 /tsconfig.json
 /vite.config.ts
+/vitest.config.ts
+/phpunit.xml
+/screenshots
 /vendor-bin
 /vendor/bin
 /tools
