@@ -48,7 +48,7 @@ if (-not (Test-Path -LiteralPath $ignoreFile)) {
 	throw "Не найден .nextcloudignore в $source"
 }
 
-$patterns = @(Get-Content -LiteralPath $ignoreFile | Where-Object { $_.Trim() -ne '' -and -not $_.StartsWith('#') })
+$patterns = @(Get-Content -LiteralPath $ignoreFile | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' -and -not $_.StartsWith('#') })
 
 [xml]$info = Get-Content -LiteralPath (Join-Path $source 'appinfo\info.xml') -Raw
 $appId = $info.info.id
