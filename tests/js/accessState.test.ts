@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
 	applyColumnOperation,
-	capitalizeCategory,
+	categoryLabel,
 	effectiveState,
 	isAllChecked,
 	isGroupChecked,
@@ -166,13 +166,22 @@ describe('sameState', () => {
 	})
 })
 
-describe('capitalizeCategory', () => {
+describe('categoryLabel', () => {
 	it('raises the first letter of a category name', () => {
-		expect(capitalizeCategory('tools')).toBe('Tools')
-		expect(capitalizeCategory('security')).toBe('Security')
+		expect(categoryLabel('tools')).toBe('Tools')
+		expect(categoryLabel('security')).toBe('Security')
+	})
+
+	it('uses the official name of a category from the app store catalogue', () => {
+		expect(categoryLabel('ai')).toBe('AI')
+		expect(categoryLabel('office')).toBe('Office & text')
+		expect(categoryLabel('social')).toBe('Social & communication')
+		expect(categoryLabel('workflow')).toBe('Flow')
 	})
 
 	it('keeps an empty name empty', () => {
-		expect(capitalizeCategory('')).toBe('')
+		expect(categoryLabel('')).toBe('')
 	})
 })
+
+

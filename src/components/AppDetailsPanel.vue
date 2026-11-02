@@ -16,7 +16,7 @@ import { translate as t } from '@nextcloud/l10n'
 import NcButton from '@nextcloud/vue/components/NcButton'
 
 import type { AccessState, MatrixApp, MatrixGroup } from '../types/matrix'
-import { capitalizeCategory } from '../lib/accessState'
+import { categoryLabel } from '../lib/accessState'
 
 const props = defineProps<{
 	app: MatrixApp | null
@@ -140,7 +140,7 @@ onBeforeUnmount(() => {
 						<dt>{{ t('access_matrix', 'Author') }}</dt>
 						<dd>{{ app?.author || '—' }}</dd>
 						<dt>{{ t('access_matrix', 'Categories') }}</dt>
-						<dd>{{ app?.categories.length ? app.categories.map(capitalizeCategory).join(', ') : '—' }}</dd>
+						<dd>{{ app?.categories.length ? app.categories.map(categoryLabel).join(', ') : '—' }}</dd>
 						<template v-if="app && app.types.length > 0">
 							<dt>{{ t('access_matrix', 'Types') }}</dt>
 							<dd>{{ app.types.join(', ') }}</dd>
@@ -325,3 +325,4 @@ onBeforeUnmount(() => {
 	opacity: 0;
 }
 </style>
+

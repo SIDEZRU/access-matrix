@@ -12,14 +12,32 @@ import type { AccessState, MatrixApp } from '../types/matrix'
  * его группы отмечаются целиком.
  */
 /**
- * Название категории с заглавной буквы.
+ * Официальные названия категорий из каталога магазина приложений Nextcloud.
  *
- * В info.xml категории записаны строчными ('tools', 'security'), а в
- * интерфейсе они выглядят как заголовки групп приложений.
+ * В info.xml идентификаторы категорий строчные, а в каталоге они записаны
+ * иначе: ai → AI, office → Office & text, social → Social & communication,
+ * workflow → Flow.
  */
-export function capitalizeCategory(name: string): string {
+const CATEGORY_NAMES: Record<string, string> = {
+	ai: 'AI',
+	office: 'Office & text',
+	social: 'Social & communication',
+	workflow: 'Flow',
+}
+
+/**
+ * Название категории для интерфейса.
+ *
+ * Для известных категорий берётся название из каталога магазина, для
+ * остальных — идентификатор с заглавной буквы.
+ */
+export function categoryLabel(name: string): string {
 	if (name === '') {
 		return ''
+	}
+	const official = CATEGORY_NAMES[name]
+	if (official !== undefined) {
+		return official
 	}
 	return name.charAt(0).toUpperCase() + name.slice(1)
 }
