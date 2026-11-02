@@ -1,0 +1,28 @@
+{
+	"name": "sidez/access-matrix",
+	"description": "Матрица выдачи доступа к приложениям Nextcloud по группам",
+	"license": "AGPL-3.0-or-later",
+	"authors": [
+		{
+			"name": "SIDEZ"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"OCA\\AccessMatrix\\": "lib/"
+		}
+	},
+	"require": {
+		"php": "^8.3"
+	},
+	"require-dev": {
+		"nextcloud/ocp": "^35.0"
+	},
+	"config": {
+		"optimize-autoloader": true,
+		"sort-packages": true,
+		"platform": {
+			"php": "8.3"
+		}
+	}
+}

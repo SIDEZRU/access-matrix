@@ -1,0 +1,29 @@
+<?php
+
+declare(strict_types=1);
+
+namespace OCA\AccessMatrix\AppInfo;
+
+use OCP\AppFramework\App;
+use OCP\AppFramework\Bootstrap\IBootContext;
+use OCP\AppFramework\Bootstrap\IBootstrap;
+use OCP\AppFramework\Bootstrap\IRegistrationContext;
+
+class Application extends App implements IBootstrap {
+	public const APP_ID = 'access_matrix';
+
+	public function __construct(array $urlParams = []) {
+		parent::__construct(self::APP_ID, $urlParams);
+	}
+
+	/**
+	 * Контроллеры Nextcloud 35 регистрируются автоматически (маршруты заданы
+	 * атрибутами #[ApiRoute] и #[FrontpageRoute]), регистрировать их вручную
+	 * не требуется.
+	 */
+	public function register(IRegistrationContext $context): void {
+	}
+
+	public function boot(IBootContext $context): void {
+	}
+}

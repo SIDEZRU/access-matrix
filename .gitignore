@@ -1,0 +1,17 @@
+# Зависимости сборки
+/node_modules/
+/vendor/
+
+# Собранные ассеты Nextcloud-приложения
+/js/
+/css/
+/build/
+
+# Локальное окружение
+.env
+.env.*
+!.env.example
+
+# Прочее
+.DS_Store
+*.log

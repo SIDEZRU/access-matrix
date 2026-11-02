@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>access_matrix</id>
+	<name>Access Matrix</name>
+	<summary>Access matrix for Nextcloud applications by group</summary>
+	<description><![CDATA[Administrative access matrix for Nextcloud.
+
+Shows an "application × group" matrix and lets an administrator grant or revoke
+access to an application with a single click, instead of typing group names by
+hand in "Settings → Apps → ⋯ → Allow access for users in certain groups".
+
+Restrictions are stored in the standard Nextcloud mechanism (the application
+`enabled` appconfig key), so the matrix and the built-in administration
+interface always show the same data.]]></description>
+	<version>0.5.3</version>
+	<licence>AGPL-3.0-or-later</licence>
+	<author>SIDEZ LLC</author>
+	<namespace>AccessMatrix</namespace>
+	<category>customization</category>
+	<category>security</category>
+	<bugs>https://github.com/SIDEZRU/access-matrix/-/issues</bugs>
+	<dependencies>
+		<php min-version="8.3"/>
+		<nextcloud min-version="35" max-version="35"/>
+	</dependencies>
+	<settings>
+		<admin>OCA\AccessMatrix\Settings\Admin</admin>
+		<admin-section>OCA\AccessMatrix\Settings\Section</admin-section>
+	</settings>
+</info>
