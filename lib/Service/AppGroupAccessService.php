@@ -102,12 +102,12 @@ class AppGroupAccessService {
 				'icon' => $this->appManager->getAppIcon($appId) ?? '',
 				'summary' => $this->textValue($info['summary'] ?? null),
 				'description' => $this->textValue($info['description'] ?? null),
-				'licence' => (string)($info['licence'] ?? ''),
-				'author' => (string)($info['author'] ?? ''),
+				'licence' => $this->elementText($info['licence'] ?? null),
+				'author' => $this->elementText($info['author'] ?? null),
 				'categories' => $this->categoryList($info['category'] ?? null),
 				'types' => array_values(array_map('strval', (array)($info['types'] ?? []))),
-				'website' => (string)($info['website'] ?? ''),
-				'repository' => (string)($info['repository'] ?? ''),
+				'website' => $this->elementText($info['website'] ?? null),
+				'repository' => $this->elementText($info['repository'] ?? null),
 				'unrestricted' => $unrestricted,
 				'groups' => $allowedGroups,
 				'restrictionWarning' => in_array($appId, $unsafeApps, true),
@@ -208,6 +208,38 @@ class AppGroupAccessService {
 		}
 
 		return '';
+	}
+
+	/**
+	 * Текст элемента info.xml (author, repository, licence и подобные).
+	 *
+	 * Ядро разбирает info.xml в массив: элемент с атрибутами даёт
+	 * ['@attributes' => [...], '@value' => '...'], повторяющиеся элементы —
+	 * список таких массивов. Строковый каст массива превращал значение
+	 * в «Array», поэтому собираем текст явно.
+	 */
+	private function elementText(mixed $value): string {
+		if (is_string($value)) {
+			return $value;
+		}
+		if (!is_array($value)) {
+			return '';
+		}
+		if (isset($value['@value']) && is_string($value['@value'])) {
+			return $value['@value'];
+		}
+
+		$items = [];
+		foreach ($value as $item) {
+			if (is_string($item)) {
+				$items[] = $item;
+			}
+			elseif (is_array($item) && isset($item['@value']) && is_string($item['@value'])) {
+				$items[] = $item['@value'];
+			}
+		}
+
+		return implode(', ', $items);
 	}
 
 	/**

@@ -135,6 +135,53 @@ class AppGroupAccessServiceTest extends TestCase {
 		self::assertSame('Dashboard Launcher', $matrix['apps'][0]['name']);
 	}
 
+	public function testGetMatrixReadsAuthorAndRepositoryWithAttributes(): void {
+		// Ядро разбирает <author mail="..." homepage="..."> и <repository type="git">
+		// в массив с ключом '@value': строковый каст массива давал "Array",
+		// а у ссылки Repository получался href="Array".
+		$this->appManager->method('getEnabledApps')->willReturn(['access_matrix']);
+		$this->appManager->method('getAppInfo')->willReturn([
+			'name' => 'Access Matrix',
+			'version' => '0.5.6',
+			'author' => [
+				'@attributes' => ['mail' => 'info@sidez.ru', 'homepage' => 'https://sidez.ru'],
+				'@value' => 'SIDEZ LLC',
+			],
+			'repository' => [
+				'@attributes' => ['type' => 'git'],
+				'@value' => 'https://github.com/SIDEZRU/access-matrix',
+			],
+			'website' => 'https://github.com/SIDEZRU/access-matrix',
+		]);
+		$this->appManager->method('hasProtectedAppType')->willReturn(false);
+		$this->appConfig->method('getValueString')->willReturn('yes');
+		$this->groupManager->method('search')->willReturn([]);
+
+		$matrix = $this->service->getMatrix();
+
+		self::assertSame('SIDEZ LLC', $matrix['apps'][0]['author']);
+		self::assertSame('https://github.com/SIDEZRU/access-matrix', $matrix['apps'][0]['repository']);
+		self::assertSame('https://github.com/SIDEZRU/access-matrix', $matrix['apps'][0]['website']);
+	}
+
+	public function testGetMatrixJoinsMultipleAuthors(): void {
+		$this->appManager->method('getEnabledApps')->willReturn(['notes']);
+		$this->appManager->method('getAppInfo')->willReturn([
+			'name' => 'Notes',
+			'author' => [
+				['@value' => 'First Author'],
+				['@value' => 'Second Author'],
+			],
+		]);
+		$this->appManager->method('hasProtectedAppType')->willReturn(false);
+		$this->appConfig->method('getValueString')->willReturn('yes');
+		$this->groupManager->method('search')->willReturn([]);
+
+		$matrix = $this->service->getMatrix();
+
+		self::assertSame('First Author, Second Author', $matrix['apps'][0]['author']);
+	}
+
 	public function testGetMatrixFallsBackToAppIdWhenNameIsEmpty(): void {
 		$this->appManager->method('getEnabledApps')->willReturn(['mystery']);
 		$this->appManager->method('getAppInfo')->willReturn(['name' => '']);

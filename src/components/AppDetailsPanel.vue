@@ -147,12 +147,12 @@ onBeforeUnmount(() => {
 					</dl>
 					<p v-if="app?.website" class="app-details__link">
 						<a :href="app.website" target="_blank" rel="noopener noreferrer">
-							{{ t('access_matrix', 'Website') }}
+							{{ app.website }}
 						</a>
 					</p>
 					<p v-if="app?.repository" class="app-details__link">
 						<a :href="app.repository" target="_blank" rel="noopener noreferrer">
-							{{ t('access_matrix', 'Repository') }}
+							{{ app.repository }}
 						</a>
 					</p>
 				</template>
