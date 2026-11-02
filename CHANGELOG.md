@@ -10,6 +10,14 @@ normally uses: the app store parses the changelog of a release with the regular
 expression `^## (\d+\.\d+\.\d+)`, so the version has to follow `## ` directly, and
 the version in the heading has to match the version in `appinfo/info.xml`.
 
+## 0.5.8 — 2026-11-02
+
+### Changed
+
+- The left indent of the matrix in *Settings → Administration* is halved (72 → 36 px): the table
+  uses the width of the settings panel more efficiently. The filter bar keeps the same left edge
+  as the table.
+
 ## 0.5.7 — 2026-11-02
 
 ### Added
