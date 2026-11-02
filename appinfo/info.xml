@@ -13,13 +13,13 @@ hand in "Settings → Apps → ⋯ → Allow access for users in certain groups"
 Restrictions are stored in the standard Nextcloud mechanism (the application
 `enabled` appconfig key), so the matrix and the built-in administration
 interface always show the same data.]]></description>
-	<version>0.5.3</version>
+	<version>0.5.4</version>
 	<licence>AGPL-3.0-or-later</licence>
 	<author>SIDEZ LLC</author>
 	<namespace>AccessMatrix</namespace>
 	<category>customization</category>
 	<category>security</category>
-	<bugs>https://github.com/SIDEZRU/access-matrix/-/issues</bugs>
+	<bugs>https://gitlab.sidez.ru/project/access-control/-/issues</bugs>
 	<dependencies>
 		<php min-version="8.3"/>
 		<nextcloud min-version="35" max-version="35"/>

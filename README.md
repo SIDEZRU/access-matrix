@@ -83,6 +83,13 @@ npm run lint      # ESLint
 PHP code follows the Nextcloud coding style; the frontend uses Vue 3 with
 `@nextcloud/vue`.
 
+
+### AI contribution disclosure
+
+This application was developed with AI assistance (Kilo CLI, MiniMax-M3.1-Flash).
+The code was reviewed, tested on a live Nextcloud instance and submitted by a human
+maintainer. Subsequent commits carry an `Assisted-by:` trailer recording the
+assistance.
 ### License
 
 AGPL-3.0-or-later — see [LICENSE](LICENSE).
@@ -166,6 +173,12 @@ npm run lint      # ESLint
 
 PHP-код следует стилю Nextcloud, фронтенд — Vue 3 с `@nextcloud/vue`.
 
+
+### Раскрытие участия ИИ
+
+Приложение разработано с участием ИИ (Kilo CLI, MiniMax-M3.1-Flash). Код проверен,
+протестирован на живом экземпляре Nextcloud и отправлен человеком-разработчиком.
+В дальнейших коммитах указывается трейлер `Assisted-by:`.
 ### Лицензия
 
 AGPL-3.0-or-later — см. [LICENSE](LICENSE).
