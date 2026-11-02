@@ -10,7 +10,7 @@ normally uses: the app store parses the changelog of a release with the regular
 expression `^## (\d+\.\d+\.\d+)`, so the version has to follow `## ` directly, and
 the version in the heading has to match the version in `appinfo/info.xml`.
 
-## 0.5.6 — 2026-11-02
+## 0.5.7 — 2026-11-02
 
 ### Added
 
@@ -22,6 +22,10 @@ the version in the heading has to match the version in `appinfo/info.xml`.
 - `<bugs>` points to the public issue tracker instead of the internal one.
 - `CHANGELOG.md` is shipped inside the release archive — the app store reads the changelog of a
   release from that file.
+- The application details panel shows the author and the repository instead of `Array`: Nextcloud
+  parses `info.xml` into arrays, and the previous string cast of an array produced `Array`
+  (and `href="Array"` for the repository link).
+- The website and repository links in the details panel show the address itself.
 
 ## 0.5.3 — 2026-11-02
 
