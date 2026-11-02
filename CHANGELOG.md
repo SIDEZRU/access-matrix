@@ -17,6 +17,8 @@ the version in the heading has to match the version in `appinfo/info.xml`.
 - The left indent of the matrix in *Settings → Administration* is cut to a third (72 → 24 px): the
   table uses the width of the settings panel more efficiently. The filter bar keeps the same left
   edge as the table.
+- Category names are shown with a capital letter (*Tools*, *Security*, …) instead of the raw
+  lowercase ids from `info.xml`.
 
 ## 0.5.7 — 2026-11-02
 

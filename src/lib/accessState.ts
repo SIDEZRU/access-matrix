@@ -11,6 +11,19 @@ import type { AccessState, MatrixApp } from '../types/matrix'
  * Приложение без ограничений (unrestricted) доступно всем, поэтому в матрице
  * его группы отмечаются целиком.
  */
+/**
+ * Название категории с заглавной буквы.
+ *
+ * В info.xml категории записаны строчными ('tools', 'security'), а в
+ * интерфейсе они выглядят как заголовки групп приложений.
+ */
+export function capitalizeCategory(name: string): string {
+	if (name === '') {
+		return ''
+	}
+	return name.charAt(0).toUpperCase() + name.slice(1)
+}
+
 export function serverState(app: MatrixApp, allGroupIds: string[]): AccessState {
 	return {
 		unrestricted: app.unrestricted,

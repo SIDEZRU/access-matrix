@@ -25,6 +25,7 @@ import AppDetailsPanel from './AppDetailsPanel.vue'
 import { fetchMatrix, saveAppAccess, saveGroupOrder } from '../services/matrixService'
 import {
 	applyColumnOperation,
+	capitalizeCategory,
 	effectiveState,
 	isAllChecked as isAllCheckedState,
 	isGroupChecked,
@@ -118,7 +119,7 @@ const categoryBlocks = computed<CategoryBlock[]>(() => {
 	return Array.from(blocks.entries())
 		.map(([key, blockApps]) => ({
 			key,
-			label: key === '' ? t('access_matrix', 'Без категории') : t('access_matrix', key),
+			label: key === '' ? t('access_matrix', 'Без категории') : capitalizeCategory(t('access_matrix', key)),
 			apps: blockApps,
 		}))
 		.sort((a, b) => {

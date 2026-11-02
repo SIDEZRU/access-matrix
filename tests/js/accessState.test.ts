@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
 	applyColumnOperation,
+	capitalizeCategory,
 	effectiveState,
 	isAllChecked,
 	isGroupChecked,
@@ -162,5 +163,16 @@ describe('sameState', () => {
 			{ unrestricted: true, groups: ALL_GROUP_IDS },
 			{ unrestricted: false, groups: ALL_GROUP_IDS },
 		)).toBe(false)
+	})
+})
+
+describe('capitalizeCategory', () => {
+	it('raises the first letter of a category name', () => {
+		expect(capitalizeCategory('tools')).toBe('Tools')
+		expect(capitalizeCategory('security')).toBe('Security')
+	})
+
+	it('keeps an empty name empty', () => {
+		expect(capitalizeCategory('')).toBe('')
 	})
 })
