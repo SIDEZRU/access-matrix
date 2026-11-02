@@ -21,4 +21,5 @@
 /vite.config.ts
 /vendor-bin
 /vendor/bin
-/*.md
+/tools
+/README.md
