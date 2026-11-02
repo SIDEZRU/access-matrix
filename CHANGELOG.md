@@ -10,6 +10,12 @@ normally uses: the app store parses the changelog of a release with the regular
 expression `^## (\d+\.\d+\.\d+)`, so the version has to follow `## ` directly, and
 the version in the heading has to match the version in `appinfo/info.xml`.
 
+## 0.5.9 — 2026-11-02
+
+### Changed
+
+- Category names are shown with a capital letter (*Tools*, *Security*, …) instead of the raw
+  lowercase ids from `info.xml`.
 ## 0.5.8 — 2026-11-02
 
 ### Changed
@@ -57,3 +63,4 @@ the version in the heading has to match the version in `appinfo/info.xml`.
 
 - The section name in *Settings → Administration* matches the application name.
 - Application names use the standard theme text colour.
+
