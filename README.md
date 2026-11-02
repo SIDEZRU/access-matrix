@@ -4,11 +4,15 @@
 per group from a single table, instead of typing group names by hand in
 *Settings → Apps → ⋯ → Allow access for users in certain groups*.
 
+![Access matrix](screenshots/matrix.png)
+
 ---
 
 ## English
 
 ### What it does
+
+![Application details](screenshots/app-details.png)
 
 The app adds a section **Matrix** to *Settings → Administration*. It shows every
 installed application as a row and every group as a column, so access can be
@@ -88,6 +92,8 @@ AGPL-3.0-or-later — see [LICENSE](LICENSE).
 ## Русский
 
 ### Что делает
+
+![Панель приложения](screenshots/app-details.png)
 
 Плагин добавляет в «Параметры сервера» раздел **Матрица доступа**: каждое
 установленное приложение — строка, каждая группа — столбец, поэтому доступ
