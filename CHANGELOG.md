@@ -14,9 +14,9 @@ the version in the heading has to match the version in `appinfo/info.xml`.
 
 ### Changed
 
-- The left indent of the matrix in *Settings → Administration* is halved (72 → 36 px): the table
-  uses the width of the settings panel more efficiently. The filter bar keeps the same left edge
-  as the table.
+- The left indent of the matrix in *Settings → Administration* is cut to a third (72 → 24 px): the
+  table uses the width of the settings panel more efficiently. The filter bar keeps the same left
+  edge as the table.
 
 ## 0.5.7 — 2026-11-02
 

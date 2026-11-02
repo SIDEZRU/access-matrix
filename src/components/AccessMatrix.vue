@@ -755,7 +755,7 @@ onBeforeUnmount(() => {
 	margin-bottom: 12px;
 	/* Панель фильтра выровнена по левому краю таблицы, справа оставлен отступ
 	   от края окна, чтобы кнопки не прилегали вплотную. */
-	padding-inline: 36px 16px;
+	padding-inline: 24px 16px;
 }
 
 @media (max-width: 900px) {
@@ -865,7 +865,7 @@ onBeforeUnmount(() => {
 
 /* Отступ слева: матрица не прилипает к краю панели настроек. */
 .access-matrix__inner {
-	padding-inline-start: 36px;
+	padding-inline-start: 24px;
 }
 
 @media (max-width: 900px) {
