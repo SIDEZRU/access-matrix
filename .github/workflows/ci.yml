@@ -1,0 +1,49 @@
+# SPDX-FileCopyrightText: 2026 SIDEZ LLC
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  phpunit:
+    name: PHPUnit
+    runs-on: ubuntu-latest
+    container:
+      image: composer:2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+      - name: Run tests
+        run: ./vendor/bin/phpunit --configuration phpunit.xml
+
+  php-lint:
+    name: PHP lint
+    runs-on: ubuntu-latest
+    container:
+      image: php:8.3-cli
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint
+        run: find lib templates -name '*.php' -print0 | xargs -0 -n1 php -l
+
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+      - name: Build
+        run: npm run build

@@ -23,6 +23,16 @@ import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 
 import AppDetailsPanel from './AppDetailsPanel.vue'
 import { fetchMatrix, saveAppAccess, saveGroupOrder } from '../services/matrixService'
+import {
+	applyColumnOperation,
+	effectiveState,
+	isAllChecked as isAllCheckedState,
+	isGroupChecked,
+	sameState,
+	serverState,
+	toggleGroupState,
+	toggleMasterState,
+} from '../lib/accessState'
 import type { AccessState, MatrixApp, MatrixGroup } from '../types/matrix'
 
 interface CategoryBlock {
@@ -135,20 +145,10 @@ function groupAccessCount(groupId: string): number {
 }
 
 /**
- * Состояние приложения, сохранённое на сервере.
- */
-function serverState(app: MatrixApp): AccessState {
-	return {
-		unrestricted: app.unrestricted,
-		groups: app.unrestricted ? [...allGroupIds.value] : [...app.groups],
-	}
-}
-
-/**
  * Состояние доступа к приложению: сохранённые изменения имеют приоритет.
  */
 function stateOf(app: MatrixApp): AccessState {
-	return drafts.value[app.id] ?? serverState(app)
+	return effectiveState(app, allGroupIds.value, drafts.value)
 }
 
 /**
@@ -163,7 +163,7 @@ function isChecked(app: MatrixApp, groupId: string): boolean {
 		return isAllChecked(app)
 	}
 
-	return stateOf(app).groups.includes(groupId)
+	return isGroupChecked(stateOf(app), groupId)
 }
 
 /**
@@ -175,7 +175,7 @@ function isAllChecked(app: MatrixApp): boolean {
 		return state.unrestricted
 	}
 
-	return allGroupIds.value.length > 0 && allGroupIds.value.every((gid) => state.groups.includes(gid))
+	return isAllCheckedState(state, allGroupIds.value)
 }
 
 function isChanged(app: MatrixApp): boolean {
@@ -189,12 +189,7 @@ function isChanged(app: MatrixApp): boolean {
  * изменений обнуляется сам, без кнопки «Сбросить».
  */
 function setDraft(app: MatrixApp, state: AccessState): void {
-	const original = serverState(app)
-	const same = state.unrestricted === original.unrestricted
-		&& state.groups.length === original.groups.length
-		&& state.groups.every((gid) => original.groups.includes(gid))
-
-	if (same) {
+	if (sameState(state, serverState(app, allGroupIds.value))) {
 		if (drafts.value[app.id] !== undefined) {
 			const next = { ...drafts.value }
 			delete next[app.id]
@@ -207,10 +202,7 @@ function setDraft(app: MatrixApp, state: AccessState): void {
 }
 
 function toggleMaster(app: MatrixApp, checked: boolean): void {
-	setDraft(app, {
-		unrestricted: checked,
-		groups: checked ? [...allGroupIds.value] : [],
-	})
+	setDraft(app, toggleMasterState(stateOf(app), allGroupIds.value, checked))
 }
 
 /**
@@ -225,15 +217,7 @@ function toggleGroup(app: MatrixApp, groupId: string, checked: boolean): void {
 		return
 	}
 
-	const state = stateOf(app)
-	const next = checked
-		? [...new Set([...state.groups, groupId])]
-		: state.groups.filter((gid) => gid !== groupId)
-
-	setDraft(app, {
-		unrestricted: next.length === allGroupIds.value.length,
-		groups: next,
-	})
+	setDraft(app, toggleGroupState(stateOf(app), allGroupIds.value, groupId, checked))
 }
 
 /**
@@ -368,15 +352,8 @@ function applyToSelectedColumns(grant: boolean): void {
 
 	const next = { ...drafts.value }
 	for (const app of filteredApps.value) {
-		const state = drafts.value[app.id] ?? serverState(app)
-		const groups = grant
-			? [...new Set([...state.groups, ...selected])]
-			: state.groups.filter((gid) => !selected.includes(gid))
-
-		next[app.id] = {
-			unrestricted: groups.length === allGroupIds.value.length,
-			groups,
-		}
+		const state = drafts.value[app.id] ?? serverState(app, allGroupIds.value)
+		next[app.id] = applyColumnOperation(state, allGroupIds.value, selected, grant)
 	}
 	drafts.value = next
 }

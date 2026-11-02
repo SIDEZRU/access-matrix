@@ -4,7 +4,7 @@
 	"license": "AGPL-3.0-or-later",
 	"authors": [
 		{
-			"name": "SIDEZ"
+			"name": "SIDEZ LLC"
 		}
 	],
 	"autoload": {
@@ -12,11 +12,22 @@
 			"OCA\\AccessMatrix\\": "lib/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"OCA\\AccessMatrix\\Tests\\": "tests/",
+			"OCP\\": "vendor/nextcloud/ocp/OCP/",
+			"NCU\\": "vendor/nextcloud/ocp/NCU/"
+		}
+	},
 	"require": {
 		"php": "^8.3"
 	},
 	"require-dev": {
-		"nextcloud/ocp": "^35.0"
+		"nextcloud/ocp": "^35.0",
+		"phpunit/phpunit": "^11.5"
+	},
+	"scripts": {
+		"test": "phpunit --configuration phpunit.xml"
 	},
 	"config": {
 		"optimize-autoloader": true,

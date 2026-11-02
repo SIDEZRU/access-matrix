@@ -135,7 +135,7 @@ class AppGroupAccessService {
 		}
 
 		$gids = [];
-		foreach ($this->groupManager->getUserGroups($user) as $group) {
+		foreach ($this->groupManager->getUserGroups($user) ?? [] as $group) {
 			$gids[] = $group->getGID();
 		}
 

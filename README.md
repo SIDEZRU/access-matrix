@@ -84,6 +84,14 @@ PHP code follows the Nextcloud coding style; the frontend uses Vue 3 with
 `@nextcloud/vue`.
 
 
+### Tests
+
+```bash
+composer install          # dev dependencies: PHPUnit and the OCP stubs
+composer test             # PHPUnit — service, parsing of info.xml, access states
+npm ci
+npm test                  # Vitest — access state logic of the matrix
+```
 ### AI contribution disclosure
 
 This application was developed with AI assistance (Kilo CLI, MiniMax-M3.1-Flash).
@@ -174,6 +182,14 @@ npm run lint      # ESLint
 PHP-код следует стилю Nextcloud, фронтенд — Vue 3 с `@nextcloud/vue`.
 
 
+### Тесты
+
+```bash
+composer install          # dev-зависимости: PHPUnit и заглушки OCP
+composer test             # PHPUnit — сервис, разбор info.xml, состояния доступа
+npm ci
+npm test                  # Vitest — логика состояния матрицы
+```
 ### Раскрытие участия ИИ
 
 Приложение разработано с участием ИИ (Kilo CLI, MiniMax-M3.1-Flash). Код проверен,
